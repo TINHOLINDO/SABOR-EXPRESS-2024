@@ -1,25 +1,23 @@
 import os
 
-clientes = [
-    {"nome": "Cliente 1", "tamanho": 13, "cor": "Azul", "ativo": True},
-    {"nome": "Cliente 2", "tamanho": 45, "cor": "Azul", "ativo": False},
-    {"nome": "Cliente 3", "tamanho": 20, "cor": "Branco", "ativo": True}
-]
+clientes = [{"nome": "João", "email": "joao@example.com", "ativo": True},
+            {"nome": "Maria", "email": "maria@example.com", "ativo": False},
+            {"nome": "Pedro", "email": "pedro@example.com", "ativo": True}]
 
-def exibir_nome_do_programa():
+def mostra_titulo():
     print("""
+    
 
 ██╗░░░██╗██╗░░░░░████████╗██████╗░░█████╗░  ██████╗░██████╗░██╗███╗░░░███╗███████╗
 ██║░░░██║██║░░░░░╚══██╔══╝██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗██║████╗░████║██╔════╝
 ██║░░░██║██║░░░░░░░░██║░░░██████╔╝███████║  ██████╔╝██████╔╝██║██╔████╔██║█████╗░░
 ██║░░░██║██║░░░░░░░░██║░░░██╔══██╗██╔══██║  ██╔═══╝░██╔══██╗██║██║╚██╔╝██║██╔══╝░░
 ╚██████╔╝███████╗░░░██║░░░██║░░██║██║░░██║  ██║░░░░░██║░░██║██║██║░╚═╝░██║███████╗
-░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░░░░╚═╝╚══════╝
-
-""")
+░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░░░░╚═╝╚══════╝2
+        """)
 
 def mostra_escolhas():
-    print("1. Cadastrar Novo Cliente")
+    print("1. Cadastrar Clientes")
     print("2. Listar Clientes")
     print("3. Ativar/Desativar Cliente")
     print("4. Sair")
@@ -27,90 +25,81 @@ def mostra_escolhas():
 def escolhe_opcao():
 
     def exibir_subtitulo(texto):
-        os.system('clear')
+        os.system("cls")
+        linha = "_" * 65
+        print(linha)
         print(texto)
+        print(linha)
         print(" ")
 
     def retorna_menu():
         input("Digite uma tecla para voltar ao menu principal ")
         main()
 
-    def cadastrar_cliente():
-        exibir_subtitulo("Cadastrar Novo Cliente")
-        nome_cliente = input("Digite o nome do cliente: ")
-        tamanho = int(input("Digite o tamanho do gás cliente: "))
-        cor = input("Digite a cor do gás cliente: ")
-        ativo = input("O cliente está ativo? (Sim/Não): ").strip().lower() == 'sim'
-        clientes.append({"nome": nome_cliente, "tamanho": tamanho, "cor": cor, "ativo": ativo})
+    def cadastra_clientes():
+        exibir_subtitulo("Cadastrar Clientes")
+
+        nome_cliente = input("Digite o nome do cliente que deseja cadastrar: ")
+        email_cliente = input(f"Digite o email do {nome_cliente} para cadastrar: ")
+        dados_do_cliente = {"nome": nome_cliente, "email": email_cliente, "ativo": True}
+        clientes.append(dados_do_cliente)
         print(f"O cliente {nome_cliente} foi cadastrado com sucesso\n")
+
         retorna_menu()
 
     def listar_clientes():
-        exibir_subtitulo("Lista de Clientes")
-        if clientes:
-            for i, cliente_item in enumerate(clientes, start=1):
-                status = "Ativo" if cliente_item["ativo"] else "Inativo"
-                print(f"{i}. Nome: {cliente_item['nome']} | Tamanho: {cliente_item['tamanho']} | Cor: {cliente_item['cor']} | Status: {status}")
-        else:
-            print("Nenhum cliente cadastrado.")
+        exibir_subtitulo("Lista de Clientes Cadastrados")
+        for cliente in clientes:
+            nome_cliente = cliente["nome"]
+            email_cliente = cliente["email"]
+            ativo = "Ativo" if cliente["ativo"] else "Inativo"
+            print(f" - {nome_cliente.ljust(20)} | {email_cliente.ljust(30)} | {ativo}")
         retorna_menu()
 
-    def ativar_desativar_cliente():
+    def ativar_cliente():
         exibir_subtitulo("Ativar/Desativar Cliente")
-        nome_cliente = input('Digite o nome do aluno que deseja ativar:')
+        nome_cliente = input("Digite o nome do cliente que deseja ativar/desativar: ")
         cliente_encontrado = False
 
         for cliente in clientes:
-           if nome_cliente == ['nome']:
+            if nome_cliente == cliente["nome"]:
                 cliente_encontrado = True
-                cliente['ativo'] = not cliente ['ativo']
-                mensagem = f'O cadastro do {nome_cliente} foi ativado/desativado com sucesso' if cliente['ativo'] else f'O cadastro {nome_cliente} foi desativado'
+                cliente["ativo"] = not cliente["ativo"]
+                mensagem = f"{nome_cliente} foi ativado com sucesso" if cliente["ativo"] else f"{nome_cliente} foi desativado"
                 print(mensagem)
-        if not cliente_encontrado
-            print('Não encontrado')
-
-        if clientes:
-            try:
-                escolha = int(input("Digite o número do cliente para ativar/desativar: "))
-                if 1 <= escolha <= len(clientes):
-                    cliente_item = clientes[escolha - 1]
-                    cliente_item["ativo"] = not cliente_item["ativo"]
-                    status = "Ativo" if cliente_item["ativo"] else "Inativo"
-                    print(f"O cliente {cliente_item['nome']} agora está {status}.")
-                else:
-                    print("Número inválido. Por favor, escolha um número da lista.")
-            except ValueError:
-                print("Entrada inválida. Por favor, insira um número válido.")
+        if not cliente_encontrado:
+            print("Cliente não encontrado")
         retorna_menu()
 
     def finalizar_programa():
-        os.system('clear')
+        os.system("cls")
         print("Finalizando o programa\n")
 
     def opcao_invalida():
-        print("Opção inválida!")
-        input("Aperte qualquer tecla para voltar ao menu...")
+        print("Essa opção não é válida")
+        input("Aperte qualquer tecla para voltar")
         main()
 
-    def main():
-        exibir_nome_do_programa()
-        mostra_escolhas()
-        try:
-            opcao_escolhida = int(input("Escolha uma opção: "))
-            if opcao_escolhida == 1:
-                cadastrar_cliente()
-            elif opcao_escolhida == 2:
-                listar_clientes()
-            elif opcao_escolhida == 3:
-                ativar_desativar_cliente()
-            elif opcao_escolhida == 4:
-                finalizar_programa()
-            else:
-                opcao_invalida()
-        except ValueError:
-            opcao_invalida()
+    try:
+        opcao_escolhida = int(input("Escolha uma opção: "))
 
-    main()
+        if opcao_escolhida == 1:
+            cadastra_clientes()
+        elif opcao_escolhida == 2:
+            listar_clientes()
+        elif opcao_escolhida == 3:
+            ativar_cliente()
+        elif opcao_escolhida == 4:
+            finalizar_programa()
+        else:
+            opcao_invalida()
+    except ValueError:
+        opcao_invalida()
+
+def main():
+    mostra_titulo()
+    mostra_escolhas()
+    escolhe_opcao()
 
 if __name__ == "__main__":
-    escolhe_opcao()
+    main()
