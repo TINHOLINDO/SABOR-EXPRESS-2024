@@ -1,6 +1,5 @@
 import os
 
-# Lista global para armazenar os clientes
 clientes = [
     {"nome": "Cliente 1", "tamanho": 13, "cor": "Azul", "ativo": True},
     {"nome": "Cliente 2", "tamanho": 45, "cor": "Azul", "ativo": False},
@@ -9,12 +8,14 @@ clientes = [
 
 def exibir_nome_do_programa():
     print("""
-██╗░░░██╗██╗░░░░░████████╗██████╗░░█████╗░░██████╗░░█████╗░███████╗
-██║░░░██║██║░░░░░╚══██╔══╝██╔══██╗██╔══██╗██╔════╝░██╔══██╗╚════██║
-██║░░░██║██║░░░░░░░░██║░░░██████╔╝███████║██║░░██╗░███████║░░███╔═╝
-██║░░░██║██║░░░░░░░░██║░░░██╔══██╗██╔══██║██║░░╚██╗██╔══██║██╔══╝░░
-╚██████╔╝███████╗░░░██║░░░██║░░██║██║░░██║╚██████╔╝██║░░██║███████╗
-░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░╚═╝░░╚═╝╚══════╝
+
+██╗░░░██╗██╗░░░░░████████╗██████╗░░█████╗░  ██████╗░██████╗░██╗███╗░░░███╗███████╗
+██║░░░██║██║░░░░░╚══██╔══╝██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗██║████╗░████║██╔════╝
+██║░░░██║██║░░░░░░░░██║░░░██████╔╝███████║  ██████╔╝██████╔╝██║██╔████╔██║█████╗░░
+██║░░░██║██║░░░░░░░░██║░░░██╔══██╗██╔══██║  ██╔═══╝░██╔══██╗██║██║╚██╔╝██║██╔══╝░░
+╚██████╔╝███████╗░░░██║░░░██║░░██║██║░░██║  ██║░░░░░██║░░██║██║██║░╚═╝░██║███████╗
+░╚═════╝░╚══════╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚═╝  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚═╝░░░░░╚═╝╚══════╝
+
 """)
 
 def mostra_escolhas():
@@ -26,7 +27,7 @@ def mostra_escolhas():
 def escolhe_opcao():
 
     def exibir_subtitulo(texto):
-        os.system("cls" if os.name == 'nt' else 'clear')
+        os.system('clear')
         print(texto)
         print(" ")
 
@@ -37,8 +38,8 @@ def escolhe_opcao():
     def cadastrar_cliente():
         exibir_subtitulo("Cadastrar Novo Cliente")
         nome_cliente = input("Digite o nome do cliente: ")
-        tamanho = int(input("Digite o tamanho do cliente: "))
-        cor = input("Digite a cor do cliente: ")
+        tamanho = int(input("Digite o tamanho do gás cliente: "))
+        cor = input("Digite a cor do gás cliente: ")
         ativo = input("O cliente está ativo? (Sim/Não): ").strip().lower() == 'sim'
         clientes.append({"nome": nome_cliente, "tamanho": tamanho, "cor": cor, "ativo": ativo})
         print(f"O cliente {nome_cliente} foi cadastrado com sucesso\n")
@@ -56,7 +57,18 @@ def escolhe_opcao():
 
     def ativar_desativar_cliente():
         exibir_subtitulo("Ativar/Desativar Cliente")
-        listar_clientes()
+        nome_cliente = input('Digite o nome do aluno que deseja ativar:')
+        cliente_encontrado = False
+
+        for cliente in clientes:
+           if nome_cliente == ['nome']:
+                cliente_encontrado = True
+                cliente['ativo'] = not cliente ['ativo']
+                mensagem = f'O cadastro do {nome_cliente} foi ativado/desativado com sucesso' if cliente['ativo'] else f'O cadastro {nome_cliente} foi desativado'
+                print(mensagem)
+        if not cliente_encontrado
+            print('Não encontrado')
+
         if clientes:
             try:
                 escolha = int(input("Digite o número do cliente para ativar/desativar: "))
@@ -72,7 +84,7 @@ def escolhe_opcao():
         retorna_menu()
 
     def finalizar_programa():
-        os.system("cls" if os.name == 'nt' else 'clear')
+        os.system('clear')
         print("Finalizando o programa\n")
 
     def opcao_invalida():
